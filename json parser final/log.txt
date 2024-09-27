@@ -1,0 +1,120 @@
+
+Nota: I nostri test sono suddivisi in diversi eseguibili, in modo da ridurre
+l'impatto di errori di compilazione o interruzioni impreviste del vostro codice.
+Per questo motivo, in questo file troverete molte linee valgrind ERROR SUMMARY: ...
+Tutte quante devono continuare con '0 errors from 0 contexts (suppressed: 0 
+from 0)'. 
+Se ci sono errori di compilazione (compaiono subito sotto a questo commento,
+prima dell'output di valgrind), cercate il punto in cui viene menzionato
+il vostro file json.cpp (dato che usiamo una libreria esterna per i test,
+è probabile che vedrete anche molti errori relativi a questa libreria, se 
+il vostro codice non compila correttamente. Ignorate quegli errori e concentratevi
+su quelli relativi a json.cpp).
+
+ATTENZIONE: se qui compaiono errori di compilazione, alcuni test non sono stati
+eseguiti e non hanno prodotto nessun output in results.txt! come prima cosa è quindi
+fondamentale che non ci siano errori di compilazione. 
+
+	
+In file included from ../test_cases/push_insert_iterators_operator[].cpp:9:
+../external/doctest/doctest/doctest.h: In instantiation of ‘decltype (((void)((declval<L>() == declval<R>())), (doctest::detail::Result)(<brace-enclosed initializer list>()))) doctest::detail::Expression_lhs<L>::operator==(R&&) [with R = json::list_iterator; L = json::list_iterator; decltype (((void)((declval<L>() == declval<R>())), (doctest::detail::Result)(<brace-enclosed initializer list>()))) = doctest::detail::Result]’:
+../test_cases/push_insert_iterators_operator[].cpp:52:9:   required from here
+../external/doctest/doctest/doctest.h:1482:32: error: passing ‘const json::list_iterator’ as ‘this’ argument discards qualifiers [-fpermissive]
+ 1482 | #define DOCTEST_CMP_EQ(l, r) l == r
+      |                                ^
+../external/doctest/doctest/doctest.h:1376:16: note: in expansion of macro ‘DOCTEST_CMP_EQ’
+ 1376 |     bool res = op_macro(doctest::detail::forward<const L>(lhs), doctest::detail::forward<R>(rhs)); \
+      |                ^~~~~~~~
+../external/doctest/doctest/doctest.h:1527:9: note: in expansion of macro ‘DOCTEST_DO_BINARY_EXPRESSION_COMPARISON’
+ 1527 |         DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ) //!OCLINT bitwise operator in conditional
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../test_cases/push_insert_iterators_operator[].cpp:4:
+../consegne/21-08-2023/897835/json.cpp:347:6: note:   in call to ‘bool json::list_iterator::operator==(const json::list_iterator&)’
+ V 347 | bool json::list_iterator::operator==(const list_iterator& i){
+      |      ^~~~
+
+RISOLTO
+
+==2114== Memcheck, a memory error detector
+==2114== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2114== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==2114== Command: ../consegne/21-08-2023/897835/boolean_functions.out
+==2114== 
+==2114== 
+==2114== HEAP SUMMARY:
+==2114==     in use at exit: 0 bytes in 0 blocks
+==2114==   total heap usage: 48 allocs, 48 frees, 117,500 bytes allocated
+==2114== 
+==2114== All heap blocks were freed -- no leaks are possible
+==2114== 
+==2114== For lists of detected and suppressed errors, rerun with: -s
+==2114== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+==2119== Memcheck, a memory error detector
+==2119== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2119== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==2119== Command: ../consegne/21-08-2023/897835/copy_move.out
+==2119== 
+==2119== 
+==2119== HEAP SUMMARY:
+==2119==     in use at exit: 0 bytes in 0 blocks
+==2119==   total heap usage: 45,821 allocs, 45,821 frees, 2,949,866 bytes allocated
+==2119== 
+==2119== All heap blocks were freed -- no leaks are possible
+==2119== 
+==2119== For lists of detected and suppressed errors, rerun with: -s
+==2119== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+==2124== Memcheck, a memory error detector
+==2124== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2124== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==2124== Command: ../consegne/21-08-2023/897835/exceptions.out
+==2124== 
+non è un dizionario
+[syntax - error] non è un lista 
+[syntax - error] non è un lista 
+==2124== 
+==2124== HEAP SUMMARY:
+==2124==     in use at exit: 0 bytes in 0 blocks
+==2124==   total heap usage: 65 allocs, 65 frees, 118,715 bytes allocated
+==2124== 
+==2124== All heap blocks were freed -- no leaks are possible
+==2124== 
+==2124== For lists of detected and suppressed errors, rerun with: -s
+==2124== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+==2129== Memcheck, a memory error detector
+==2129== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2129== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==2129== Command: ../consegne/21-08-2023/897835/load_save_file.out
+==2129== 
+==2129== 
+==2129== HEAP SUMMARY:
+==2129==     in use at exit: 0 bytes in 0 blocks
+==2129==   total heap usage: 1,606,249 allocs, 1,606,249 frees, 115,232,194 bytes allocated
+==2129== 
+==2129== All heap blocks were freed -- no leaks are possible
+==2129== 
+==2129== For lists of detected and suppressed errors, rerun with: -s
+==2129== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+==2134== Memcheck, a memory error detector
+==2134== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2134== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==2134== Command: ../consegne/21-08-2023/897835/set_get_functions.out
+==2134== 
+==2134== 
+==2134== HEAP SUMMARY:
+==2134==     in use at exit: 0 bytes in 0 blocks
+==2134==   total heap usage: 39 allocs, 39 frees, 116,107 bytes allocated
+==2134== 
+==2134== All heap blocks were freed -- no leaks are possible
+==2134== 
+==2134== For lists of detected and suppressed errors, rerun with: -s
+==2134== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
